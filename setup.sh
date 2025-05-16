@@ -2,6 +2,18 @@
 
 PROJECT_DIR=$(pwd)
 
+function check_command() {
+    command -v "$1" >/dev/null 2>&1 || { echo "[ERROR] Command '$1' is required but not installed. Please install it and try again."; exit 1; }
+}
+
+echo "[*] Checking for required commands..."
+REQUIRED_COMMANDS=("aireplay-ng" "airodump-ng" "airmon-ng" "macchanger" "shred" "tcpdump")
+
+for cmd in "${REQUIRED_COMMANDS[@]}"; do
+    check_command "$cmd"
+done
+
+echo "[*] All required commands are installed."
 echo "[*] Setting name of interface to be used in scripts..."
 read -p "Enter the name of your network interface (e.g., wlan0): " IFACE
 sed -i "s/IFACE=\"wlan0\"/IFACE=\"$IFACE\"/" "$PROJECT_DIR"/scripts/connect.sh

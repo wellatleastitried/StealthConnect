@@ -119,4 +119,3 @@ cleanup_state_file
 
 echo "[+] Cleanup complete. Your original network configuration has been restored."
 echo "[+] You may need to reconnect to your network normally now."
-

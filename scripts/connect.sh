@@ -31,7 +31,6 @@ IFACE="wlan0"
 HOSTNAME="Galaxy-S21"               # Set to mimic android phone, can be changed to anything you want
 SAMSUNG_MAC_OUI="58:CB:52"          # Preset is to mimic a Samsung phone, can be changed to any OUI
 
-# Traffic shaping settings to mimic mobile requests
 RATE="100kbps"
 BURST="32kbit"
 LATENCY="100ms"
@@ -190,4 +189,3 @@ echo "[+] Your device appears as: $HOSTNAME (Samsung Galaxy)"
 echo "[+] Connected with IP: $IP"
 echo "[+] Settings saved to /tmp/network_stealth_state for disconnect script"
 echo "[+] Run disconnect.sh when finished to restore original settings"
-

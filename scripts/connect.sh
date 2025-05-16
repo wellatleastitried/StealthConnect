@@ -1,4 +1,24 @@
 #!/bin/bash
+# -----------------------------------------------------------------------------
+# Author: wellatleastitried
+# -----------------------------------------------------------------------------
+# DISCLAIMER
+# -----------------------------------------------------------------------------
+# This script is provided for educational and authorized security testing only.
+# You are solely responsible for ensuring that your use of this script complies
+# with all applicable laws, regulations, and terms of service.
+#
+# The author assumes NO LIABILITY and NO RESPONSIBILITY for any misuse, damage,
+# unauthorized access, disruption of service, or illegal activity resulting from
+# the use of this script.
+#
+# By using this script, you acknowledge that:
+# - You understand the potential impact of the actions it performs;
+# - You have explicit permission to use it in the target environment;
+# - You accept full responsibility for any consequences arising from its use.
+#
+# If you do not agree to these terms, you are prohibited from using this script.
+# -----------------------------------------------------------------------------
 
 set -euo pipefail
 

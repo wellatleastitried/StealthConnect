@@ -6,8 +6,9 @@ echo "[*] Setting name of interface to be used in scripts..."
 read -p "Enter the name of your network interface (e.g., wlan0): " IFACE
 sed -i "s/IFACE=\"wlan0\"/IFACE=\"$IFACE\"/" "$PROJECT_DIR"/scripts/connect.sh
 sed -i "s/IFACE=\"wlan0\"/IFACE=\"$IFACE\"/" "$PROJECT_DIR"/scripts/disconnect.sh
-
+sed -i "s/IFACE=\"wlan0\"/IFACE=\"$IFACE\"/" "$PROJECT_DIR"/scripts/deauth.sh
 echo "[*] Setting up aliases for the connection scripts..."
+
 if [ "$SHELL" == "/bin/bash" ]; then
     echo "alias connect='bash ~/scripts/connect.sh'" >> ~/.bashrc
     echo "alias disconnect='bash ~/scripts/disconnect.sh'" >> ~/.bashrc
@@ -26,9 +27,9 @@ else
     echo "[!] Unsupported shell. You can add the aliases manually or run the scripts directly."
     echo "alias stealthConnect \"$(pwd)/connect.sh\" >> ~/.NAME_OF_SHELL_CONFIG"
     echo "alias stealthDisconnect \"$(pwd)/disconnect.sh\" >> ~/.NAME_OF_SHELL_CONFIG"
+    echo "alias stealthDeauth \"$(pwd)/deauth.sh\" >> ~/.NAME_OF_SHELL_CONFIG"
 fi
 
 echo "[*] Marking scripts as executable..."
 chmod +x "$PROJECT_DIR"/scripts/*.sh
-
 echo "[*] Setup complete!"

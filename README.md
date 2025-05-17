@@ -50,3 +50,6 @@ By using this script, you acknowledge that:
 
 If you do not agree to these terms, you are prohibited from using this script.
 
+## Notice 2
+
+As long as this message remains here, I have not done any testing on these scripts yet - so they may or may not work as intended.

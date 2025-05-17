@@ -28,8 +28,8 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 IFACE="wlan0"
-HOSTNAME="Galaxy-S21"               # Set to mimic android phone, can be changed to anything you want
-SAMSUNG_MAC_OUI="58:CB:52"          # Preset is to mimic a Samsung phone, can be changed to any OUI
+HOSTNAME="Galaxy-S21"       # Set to mimic android phone, can be changed to anything you want
+SAMSUNG_MAC_OUI="58:CB:52"  # Preset is to mimic a Samsung phone, can be changed to any OUI
 
 RATE="100kbps"
 BURST="32kbit"
